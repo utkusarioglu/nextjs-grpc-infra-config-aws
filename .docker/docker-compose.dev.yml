@@ -1,10 +1,10 @@
 version: "3.9"
 
 services:
-  terraform:
-    container_name: terraform-eks-repo-template
-    image: utkusarioglu/terraform-eks-devcontainer:1.2.14
+  nextjs-grpc-infra-config-aws:
+    container_name: nextjs-grpc-infra-config-aws
+    image: utkusarioglu/terraform-aws-eks-devcontainer:1.2.14
     volumes:
-      - ..:/utkusarioglu-com/templates/terraform-eks-repo-template
+      - ../../../..:/utkusarioglu-com/projects/nextjs-grpc
     environment:
       TZ: Etc/UTC

@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-  terraform:
+  nextjs-grpc-infra-config-aws:
     volumes:
       - vscode-extensions:/root/.vscode-server/extensions
       - vscode-extensions-insiders:/root/.vscode-server-insiders/extensions
@@ -12,8 +12,8 @@ services:
 
 volumes:
   vscode-extensions:
-    name: terraform-eks-repo-template-vscode-extensions
+    name: nextjs-grpc-infra-config-aws-vscode-extensions
   vscode-extensions-insiders:
-    name: terraform-eks-repo-template-vscode-extensions-insiders
+    name: nextjs-grpc-infra-config-aws-vscode-extensions-insiders
   go:
-    name: terraform-eks-repo-template-go
+    name: nextjs-grpc-infra-config-aws-go
