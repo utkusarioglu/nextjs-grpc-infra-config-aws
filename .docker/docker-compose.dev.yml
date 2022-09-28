@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  terraform:
+    container_name: terraform-eks-repo-template
+    image: utkusarioglu/terraform-eks-devcontainer:1.2.14
+    volumes:
+      - ..:/utkusarioglu-com/templates/terraform-eks-repo-template
+    environment:
+      TZ: Etc/UTC
