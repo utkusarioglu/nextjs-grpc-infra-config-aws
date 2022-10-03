@@ -34,7 +34,7 @@ locals {
 
 # add 'mapUsers' section to 'aws-auth' configmap with Admins & Developers
 resource "time_sleep" "wait" {
-  create_duration = "180s"
+  create_duration = var.user_create_sleep_duration
   triggers = {
     cluster_endpoint = data.aws_eks_cluster.cluster.endpoint
   }

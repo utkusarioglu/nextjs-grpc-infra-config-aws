@@ -104,3 +104,8 @@ variable "developer_users" {
   type        = list(string)
   description = "List of Kubernetes developers."
 }
+
+variable "user_create_sleep_duration" {
+  type        = string
+  description = "The duration that the creation shall sleep while waiting for the users to be created"
+}

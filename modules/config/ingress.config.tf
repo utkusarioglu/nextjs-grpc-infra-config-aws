@@ -24,16 +24,25 @@ variable "ingress_gateway_chart_version" {
   description = "Ingress Gateway Helm chart version."
 }
 
+variable "user_create_sleep_duration" {
+  type        = string
+  description = "The duration that the creation shall sleep while waiting for the users to be created"
+}
+
 # create AWS-issued SSL certificate
 resource "aws_acm_certificate" "eks_domain_cert" {
   domain_name               = var.dns_base_domain
-  subject_alternative_names = ["nextjs-grpc.${var.dns_base_domain}"]
+  subject_alternative_names = [
+    "nextjs-grpc.${var.dns_base_domain}", 
+    "*.nextjs-grpc.${var.dns_base_domain}", 
+  ]
   validation_method         = "DNS"
 
   tags = {
     Name = "nextjs-grpc.${var.dns_base_domain}"
   }
 }
+
 resource "aws_route53_record" "eks_domain_cert_validation_dns" {
   for_each = {
     for dvo in aws_acm_certificate.eks_domain_cert.domain_validation_options : dvo.domain_name => {
@@ -50,6 +59,7 @@ resource "aws_route53_record" "eks_domain_cert_validation_dns" {
   type            = each.value.type
   zone_id         = data.aws_route53_zone.base_domain.zone_id
 }
+
 resource "aws_acm_certificate_validation" "eks_domain_cert_validation" {
   certificate_arn         = aws_acm_certificate.eks_domain_cert.arn
   validation_record_fqdns = [for record in aws_route53_record.eks_domain_cert_validation_dns : record.fqdn]

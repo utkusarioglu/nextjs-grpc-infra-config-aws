@@ -38,6 +38,7 @@ module "config" {
   name_prefix                              = var.name_prefix
   admin_users                              = var.admin_users
   developer_users                          = var.developer_users
+  user_create_sleep_duration               = var.user_create_sleep_duration
 
   providers = {
     aws.dns_region = aws.dns_region
@@ -45,13 +46,32 @@ module "config" {
   }
 }
 
-module "app" {
-  source = "./modules/app"
+module "app_prep" {
+  source = "./modules/app-prep"
 
-  project_root_path         = local.project_root_path
-  aws_alb_security_group_id = module.base.aws_alb_security_group_id
+  project_root_path = var.project_root_rel_path
+  helm_timeout_unit = var.helm_timeout_unit
+  helm_atomic       = var.helm_atomic
 
   depends_on = [
     module.config
+  ]
+}
+
+module "app" {
+  source = "../../configs/app"
+
+  project_root_rel_path = var.project_root_rel_path
+  helm_timeout_unit     = var.helm_timeout_unit
+  helm_atomic           = var.helm_atomic
+  sld                   = var.sld
+  tld                   = var.tld
+  environment           = "aws"
+  cluster_name          = var.cluster_name
+  ingress_sg            = module.base.aws_alb_security_group_id
+
+
+  depends_on = [
+    module.app_prep
   ]
 }
