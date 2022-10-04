@@ -31,12 +31,13 @@ variable "user_create_sleep_duration" {
 
 # create AWS-issued SSL certificate
 resource "aws_acm_certificate" "eks_domain_cert" {
-  domain_name               = var.dns_base_domain
+  domain_name       = var.dns_base_domain
+  validation_method = "DNS"
+
   subject_alternative_names = [
-    "nextjs-grpc.${var.dns_base_domain}", 
-    "*.nextjs-grpc.${var.dns_base_domain}", 
+    "nextjs-grpc.${var.dns_base_domain}",
+    "*.nextjs-grpc.${var.dns_base_domain}",
   ]
-  validation_method         = "DNS"
 
   tags = {
     Name = "nextjs-grpc.${var.dns_base_domain}"

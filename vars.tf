@@ -3,11 +3,6 @@ variable "dns_region" {
   description = "AWS region where the dns records are created"
 }
 
-variable "cluster_region" {
-  type        = string
-  description = "AWS region where the cluster is created"
-}
-
 variable "iac_environment_tag" {
   type        = string
   description = "AWS tag to indicate environment name of each infrastructure object."

@@ -1,4 +1,4 @@
-module utkusarioglu.com/templates/terraform-eks-repo-template
+module utkusarioglu.com/templates/nextjs-grpc-infra-config-aws
 
 go 1.18
 
