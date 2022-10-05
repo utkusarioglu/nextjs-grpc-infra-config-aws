@@ -46,8 +46,8 @@ module "config" {
   }
 }
 
-module "app_prep" {
-  source = "./modules/app-prep"
+module "app_tier_1" {
+  source = "../../configs/app/modules/tier-1"
 
   project_root_path = var.project_root_rel_path
   helm_timeout_unit = var.helm_timeout_unit
@@ -58,8 +58,8 @@ module "app_prep" {
   ]
 }
 
-module "app" {
-  source = "../../configs/app"
+module "app_tier_2" {
+  source = "../../configs/app/modules/tier-2"
 
   project_root_rel_path = var.project_root_rel_path
   helm_timeout_unit     = var.helm_timeout_unit
@@ -72,6 +72,6 @@ module "app" {
 
 
   depends_on = [
-    module.app_prep
+    module.app_tier_1
   ]
 }
