@@ -52,6 +52,8 @@ module "app_tier_1" {
   project_root_path = var.project_root_rel_path
   helm_timeout_unit = var.helm_timeout_unit
   helm_atomic       = var.helm_atomic
+  sld               = var.sld
+  tld               = var.tld
 
   depends_on = [
     module.config
